@@ -16,9 +16,20 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path, include
+from django.contrib.auth.views import PasswordChangeView
+from django.urls import path, include, reverse_lazy
+from django.views.generic.base import TemplateView  # new
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path(
+        "accounts/password_change/",
+        PasswordChangeView.as_view(success_url=reverse_lazy("index")),
+        name="password_change",
+    ),
+    path("accounts/", include("django.contrib.auth.urls")),  # new
+    path("accounts/", include("accounts.urls")),  # new
+
     path("", include("landing.urls")),
 ]

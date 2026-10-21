@@ -11,9 +11,12 @@
 </head>
 
 <body>
+    {% if user.is_authenticated %}
+    {% else %}
+    {% endif %}
 
-    {% include "landing/partials/topbar.html" %}
     {% include "landing/partials/sidebarLeft.html" %}
+    {% include "landing/partials/topbar.html" %}
 
     <div class="page-layout">
 

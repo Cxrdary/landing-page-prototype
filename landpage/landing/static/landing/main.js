@@ -33,6 +33,8 @@ if (sidebar && sidebarCloseButton) {
 const categoryDropdowns =
     document.querySelectorAll("[data-category-dropdown]");
 
+const accountDropdown =
+    document.querySelector("[data-account-dropdown]");
 
 function closeCategoryDropdown(dropdown) {
     const button = dropdown.querySelector("[data-dropdown-button]");
@@ -449,6 +451,10 @@ document.addEventListener("click", (event) => {
     ) {
         closeSearchModeDropdown();
     }
+
+    if (accountDropdown && !accountDropdown.contains(event.target)) {
+        accountDropdown.open = false;
+    }
 });
 
 
@@ -458,5 +464,10 @@ document.addEventListener("keydown", (event) => {
         categoryDropdowns.forEach(closeCategoryDropdown);
         sidebarDropdowns.forEach(closeSidebarFilterDropdown);
         closeSearchModeDropdown();
+
+        if (accountDropdown?.open) {
+            accountDropdown.open = false;
+            accountDropdown.querySelector("summary")?.focus();
+        }
     }
 });

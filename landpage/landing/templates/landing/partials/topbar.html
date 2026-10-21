@@ -220,12 +220,31 @@
         </div>
 
     </form>
+{% if user.is_authenticated %}
+    <details class="account-dropdown" data-account-dropdown>
+        <summary class="account-button">
+            <span class="account-icon">&#9817;</span>
+            Hi, {{ user.username }}!
+            <span aria-hidden="true">&#9662;</span>
+        </summary>
 
-<form action="http://localhost:8000/questionnaire.php" method="post" target="_blank"> 
-    <button class="account-button" type="submit">
+        <div class="account-menu">
+            <a class="account-menu-item" href="{% url 'password_change' %}">
+                Change password
+            </a>
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button class="account-menu-item" type="submit">
+                    Sign out
+                </button>
+            </form>
+        </div>
+    </details>
+{% else %}
+    <a href="{% url 'login' %}" class="account-button">
         <span class="account-icon">&#9817;</span>
-        Questionnaire
-    </button>
-    </form>
+        Log In
+    </a>
+{% endif %}
 
 </header>
